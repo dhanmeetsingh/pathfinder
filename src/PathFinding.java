@@ -590,7 +590,7 @@ public class PathFinding {
 		}
 	}
 	
-	class Node {
+	public class Node {
 		
 		// 0 = start, 1 = finish, 2 = wall, 3 = empty, 4 = checked, 5 = finalpath
 		private int cellType = 0;
@@ -600,7 +600,24 @@ public class PathFinding {
 		private int lastX;
 		private int lastY;
 		private double dToEnd = 0;
-	
+		private int id;
+	    private List<Edge> edges = new ArrayList<>();
+
+	    public void addEdges(List<Node> nodes, List<List<Integer>> adjList) {
+	        for (int i = 0; i < adjList.size(); i++) {
+	            List<Integer> neighbors = adjList.get(i);
+	            Node node = nodes.get(i);
+	            for (int j = 0; j < neighbors.size(); j++) {
+	                int neighborId = neighbors.get(j);
+	                Node neighborNode = nodes.get(neighborId);
+	                int weight = 1; // or some other weight, depending on your graph representation
+	                Edge edge = new Edge(node, neighborNode, weight);
+	                node.addEdge(edge);
+	            }
+	        }
+	    }
+
+
 		public Node(int type, int x, int y) {	//CONSTRUCTOR
 			cellType = type;
 			this.x = x;
@@ -614,6 +631,7 @@ public class PathFinding {
 			dToEnd = Math.sqrt((xdif*xdif)+(ydif*ydif));
 			return dToEnd;
 		}
+		
 		
 		public int getX() {return x;}		//GET METHODS
 		public int getY() {return y;}
