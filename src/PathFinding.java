@@ -310,10 +310,7 @@ public class PathFinding {
 		creditB.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frame, "	                         Pathfinding\n"
-												   + "             Copyright (c) 2017-2018\n"
-												   + "                         Greer Viau\n"
-												   + "          Build Date:  March 28, 2018   ", "Credit", JOptionPane.PLAIN_MESSAGE, new ImageIcon(""));
+				JOptionPane.showMessageDialog(frame, ""  + ""   + " "   + "   ", "", JOptionPane.PLAIN_MESSAGE, new ImageIcon(""));
 			}
 		});
 		
