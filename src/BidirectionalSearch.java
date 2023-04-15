@@ -1,9 +1,38 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 public class BidirectionalSearch implements PathFinding {
+	private Map<Vertex, Double> forwardDistances = new HashMap<>();
+	private Map<Vertex, Double> backwardDistances = new HashMap<>();
+
+}
 	public List<Node> getPath(Node start, Node end, List<Node> nodes, List<Edge> edges) {
 	    Map<Node, Integer> forwardDistances = new HashMap<>();
 	    Map<Node, Integer> backwardDistances = new HashMap<>();
 	    Map<Node, Edge> forwardParents = new HashMap<>();
 	    Map<Node, Edge> backwardParents = new HashMap<>();
+	    private static int getEdgeWeight(Node current, Edge edge) {
+	        if (edge.getFrom().equals(current)) {
+	            return edge.getWeight();
+	        } else {
+	            return edge.getReverse().getWeight();
+	        }
+	    }
+	    private static List<Node> getAdjacentNodes(Node node, Map<Node, List<Edge>> graph) {
+	        List<Node> adjacentNodes = new ArrayList<>();
+	        for (Edge edge : graph.get(node)) {
+	            if (edge.getFrom().equals(node)) {
+	                adjacentNodes.add(edge.getTo());
+	            } else {
+	                adjacentNodes.add(edge.getReverse().getFrom());
+	            }
+	        }
+	        return adjacentNodes;
+	    }
+
 
 	    // Initialization
 	    for (Node node : nodes) {
@@ -13,8 +42,8 @@ public class BidirectionalSearch implements PathFinding {
 	    forwardDistances.put(start, 0);
 	    backwardDistances.put(end, 0);
 
-	    PriorityQueue<Node> forwardQueue = new PriorityQueue<>((a, b) -> forwardDistances.get(a) - forwardDistances.get(b));
-	    PriorityQueue<Node> backwardQueue = new PriorityQueue<>((a, b) -> backwardDistances.get(a) - backwardDistances.get(b));
+	    PriorityPriorityQueue<Vertex> forwardQueue = new PriorityQueue<>((a, b) -> forwardDistances.get(a) - forwardDistances.get(b));
+	    PriorityPriorityQueue<Vertex> backwardQueue = new PriorityQueue<>((a, b) -> backwardDistances.get(a) - backwardDistances.get(b));
 	    forwardQueue.add(start);
 	    backwardQueue.add(end);
 

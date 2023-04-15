@@ -1,19 +1,25 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
 public class Edge {
-    private Node from;
-    private Node to;
+    private Vertex from;
+    private Vertex to;
     private int weight;
 
-    public Edge(Node from, Node to, int weight) {
+    public Edge(Vertex from, Vertex to, int weight) {
         this.from = from;
         this.to = to;
         this.weight = weight;
     }
 
-    public Node getFrom() {
+    public Vertex getFrom() {
         return from;
     }
 
-    public Node getTo() {
+    public Vertex getTo() {
         return to;
     }
 
