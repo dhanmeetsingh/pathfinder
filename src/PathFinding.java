@@ -24,16 +24,17 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JComboBox;
+import PathFinding.PathFinding.Cell;
 
 public class PathFinding {
 	
 	//FRAME
 	JFrame frame;
 	//GENERAL VARIABLES
-	private int cells = 20;
+	private int PathFinding.Cells = 20;
 	private int delay = 30;
 	private double dense = .5;
-	private double density = (cells*cells)*.5;
+	private double density = (PathFinding.Cells*PathFinding.Cells)*.5;
 	private int startx = -1;
 	private int starty = -1;
 	private int finishx = -1;
@@ -45,7 +46,7 @@ public class PathFinding {
 	private int WIDTH = 850;
 	private final int HEIGHT = 650;
 	private final int MSIZE = 600;
-	private int CSIZE = MSIZE/cells;
+	private int CSIZE = MSIZE/PathFinding.Cells;
 	//UTIL ARRAYS
 	private String[] algorithms = {"Dijkstra","A*"};
 	private String[] tools = {"Start","Finish","Wall", "Eraser"};
@@ -63,7 +64,7 @@ public class PathFinding {
 	JLabel algL = new JLabel("Algorithms");
 	JLabel toolL = new JLabel("Toolbox");
 	JLabel sizeL = new JLabel("Size:");
-	JLabel cellsL = new JLabel(cells+"x"+cells);
+	JLabel PathFinding.CellsL = new JLabel(PathFinding.Cells+"x"+PathFinding.Cells);
 	JLabel delayL = new JLabel("Delay:");
 	JLabel msL = new JLabel(delay+"ms");
 	JLabel obstacleL = new JLabel("Dens:");
@@ -100,11 +101,17 @@ public class PathFinding {
 		for(int i = 0; i < density; i++) {
 			Node current;
 			do {
-				int x = r.nextInt(cells);
-				int y = r.nextInt(cells);
+				int x = r.nextInt(PathFinding.Cells);
+				int y = r.nextInt(PathFinding.Cells);
 				current = map[x][y];	//FIND A RANDOM NODE IN THE GRID
+				PathFinding.Cell currentPathFinding.Cell = start;
+
 			} while(current.getType()==2);	//IF IT IS ALREADY A WALL, FIND A NEW ONE
 			current.setType(2);	//SET NODE TO BE A WALL
+			currentPathFinding.Cell = openList.remove();
+			highlightPathFinding.Cell(currentPathFinding.Cell);
+
+
 		}
 	}
 	
@@ -113,18 +120,21 @@ public class PathFinding {
 		finishy = -1;
 		startx = -1;
 		starty = -1;
-		map = new Node[cells][cells];	//CREATE NEW MAP OF NODES
-		for(int x = 0; x < cells; x++) {
-			for(int y = 0; y < cells; y++) {
+		map = new Node[PathFinding.Cells][PathFinding.Cells];	//CREATE NEW MAP OF NODES
+		for(int x = 0; x < PathFinding.Cells; x++) {
+			for(int y = 0; y < PathFinding.Cells; y++) {
 				map[x][y] = new Node(3,x,y);	//SET ALL NODES TO EMPTY
 			}
 		}
 		reset();	//RESET SOME VARIABLES
 	}
-	
+	public void highlightPathFinding.Cell(PathFinding.Cell PathFinding.Cell) {
+	    PathFinding.Cell.setColor(Color.YELLOW);
+	}
+
 	public void resetMap() {	//RESET MAP
-		for(int x = 0; x < cells; x++) {
-			for(int y = 0; y < cells; y++) {
+		for(int x = 0; x < PathFinding.Cells; x++) {
+			for(int y = 0; y < PathFinding.Cells; y++) {
 				Node current = map[x][y];
 				if(current.getType() == 4 || current.getType() == 5)	//CHECK TO SEE IF CURRENT NODE IS EITHER CHECKED OR FINAL PATH
 					map[x][y] = new Node(3,x,y);	//RESET IT TO AN EMPTY NODE
@@ -193,8 +203,8 @@ public class PathFinding {
 		size.setMajorTickSpacing(10);
 		size.setBounds(50,space,100,25);
 		toolP.add(size);
-		cellsL.setBounds(160,space,40,25);
-		toolP.add(cellsL);
+		PathFinding.CellsL.setBounds(160,space,40,25);
+		toolP.add(PathFinding.CellsL);
 		space+=buff;
 		
 		delayL.setBounds(15,space,50,25);
@@ -277,7 +287,7 @@ public class PathFinding {
 		size.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				cells = size.getValue()*10;
+				PathFinding.Cells = size.getValue()*10;
 				clearMap();
 				reset();
 				Update();
@@ -338,10 +348,10 @@ public class PathFinding {
 	}
 	
 	public void Update() {	//UPDATE ELEMENTS OF THE GUI
-		density = (cells*cells)*dense;
-		CSIZE = MSIZE/cells;
+		density = (PathFinding.Cells*PathFinding.Cells)*dense;
+		CSIZE = MSIZE/PathFinding.Cells;
 		canvas.repaint();
-		cellsL.setText(cells+"x"+cells);
+		PathFinding.CellsL.setText(PathFinding.Cells+"x"+PathFinding.Cells);
 		msL.setText(delay+"ms");
 		lengthL.setText("Path Length: "+length);
 		densityL.setText(obstacles.getValue()+"%");
@@ -369,8 +379,8 @@ public class PathFinding {
 		
 		public void paintComponent(Graphics g) {	//REPAINT
 			super.paintComponent(g);
-			for(int x = 0; x < cells; x++) {	//PAINT EACH NODE IN THE GRID
-				for(int y = 0; y < cells; y++) {
+			for(int x = 0; x < PathFinding.Cells; x++) {	//PAINT EACH NODE IN THE GRID
+				for(int y = 0; y < PathFinding.Cells; y++) {
 					switch(map[x][y].getType()) {
 						case 0:
 							g.setColor(Color.GREEN);
@@ -487,6 +497,21 @@ public class PathFinding {
 			ArrayList<Node> priority = new ArrayList<Node>();	//CREATE A PRIORITY QUE
 			priority.add(map[startx][starty]);	//ADD THE START TO THE QUE
 			while(solving) {
+				for (PathFinding.Cell neighbor : neighbors) {
+				    int newDistance = currentPathFinding.Cell.getDistance() + 1;
+				    if (newDistance < neighbor.getDistance()) {
+				        neighbor.setDistance(newDistance);
+				        neighbor.setParent(currentPathFinding.Cell);
+				        openList.add(neighbor);
+				        highlightPathFinding.Cell(neighbor);
+				    }
+				}
+				
+
+
+
+
+
 				if(priority.size() <= 0) {	//IF THE QUE IS 0 THEN NO PATH CAN BE FOUND
 					solving = false;
 					break;
@@ -512,6 +537,17 @@ public class PathFinding {
 			ArrayList<Node> priority = new ArrayList<Node>();
 			priority.add(map[startx][starty]);
 			while(solving) {
+				for (PathFinding.Cell neighbor : neighbors) {
+				    if (!neighbor.isVisited()) {
+				        neighbor.setParent(currentPathFinding.Cell);
+				        neighbor.setG(currentPathFinding.Cell.getG() + 1);
+				        neighbor.setH(heuristic(neighbor, end));
+				        neighbor.setF(neighbor.getG() + neighbor.getH());
+				        openList.add(neighbor);
+				        highlightPathFinding.Cell(neighbor);
+				    }
+				}
+
 				if(priority.size() <= 0) {
 					solving = false;
 					break;
@@ -554,7 +590,7 @@ public class PathFinding {
 				for(int b = -1; b <= 1; b++) {
 					int xbound = current.getX()+a;
 					int ybound = current.getY()+b;
-					if((xbound > -1 && xbound < cells) && (ybound > -1 && ybound < cells)) {	//MAKES SURE THE NODE IS NOT OUTSIDE THE GRID
+					if((xbound > -1 && xbound < PathFinding.Cells) && (ybound > -1 && ybound < PathFinding.Cells)) {	//MAKES SURE THE NODE IS NOT OUTSIDE THE GRID
 						Node neighbor = map[xbound][ybound];
 						if((neighbor.getHops()==-1 || neighbor.getHops() > hops) && neighbor.getType()!=2) {	//CHECKS IF THE NODE IS NOT A WALL AND THAT IT HAS NOT BEEN EXPLORED
 							explore(neighbor, current.getX(), current.getY(), hops);	//EXPLORE THE NODE
@@ -593,7 +629,7 @@ public class PathFinding {
 	class Node {
 		
 		// 0 = start, 1 = finish, 2 = wall, 3 = empty, 4 = checked, 5 = finalpath
-		private int cellType = 0;
+		private int PathFinding.CellType = 0;
 		private int hops;
 		private int x;
 		private int y;
@@ -602,7 +638,7 @@ public class PathFinding {
 		private double dToEnd = 0;
 	
 		public Node(int type, int x, int y) {	//CONSTRUCTOR
-			cellType = type;
+			PathFinding.CellType = type;
 			this.x = x;
 			this.y = y;
 			hops = -1;
@@ -619,10 +655,10 @@ public class PathFinding {
 		public int getY() {return y;}
 		public int getLastX() {return lastX;}
 		public int getLastY() {return lastY;}
-		public int getType() {return cellType;}
+		public int getType() {return PathFinding.CellType;}
 		public int getHops() {return hops;}
 		
-		public void setType(int type) {cellType = type;}		//SET METHODS
+		public void setType(int type) {PathFinding.CellType = type;}		//SET METHODS
 		public void setLastNode(int x, int y) {lastX = x; lastY = y;}
 		public void setHops(int hops) {this.hops = hops;}
 	}
