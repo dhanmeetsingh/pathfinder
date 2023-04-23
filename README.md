@@ -18,6 +18,6 @@ Tech Stack
 
 Pathfinder is an excellent tool for anyone interested in learning or implementing the A* and Dijkstra algorithms. Its interactive and visual representation simplifies the understanding of these algorithms and makes learning fun. We hope that Pathfinder will help students, researchers, and developers to explore the world of shortest path algorithms and inspire them to create innovative solutions using these algorithms.
 
+Here, yellow line is a shortest path from start node (Green) to End Node (Red) through different walls (Black)
 
-
-
+![2023-04-23 (1)](https://user-images.githubusercontent.com/42151190/233837990-037b0ea3-3674-4f4a-9307-2cf937668251.png)
