@@ -20,4 +20,5 @@ Pathfinder is an excellent tool for anyone interested in learning or implementin
 
 Here, yellow line is a shortest path from start node (Green) to End Node (Red) through different walls (Black)
 
-![2023-04-23 (1)](https://user-images.githubusercontent.com/42151190/233837990-037b0ea3-3674-4f4a-9307-2cf937668251.png)
+![2023-04-23 (1)](https://user-images.githubusercontent.com/42151190/233839306-f0370f4d-fb2b-4ef1-9365-3c01bb540160.png)
+
