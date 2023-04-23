@@ -1,6 +1,6 @@
 
 ### Pathfinder: A Graph Visualization Tool for Shortest Path Algorithms
-Pathfinder is an open-source project aimed at providing a visual representation of the shortest path algorithms - A* and Dijkstra. The project is designed to help students, researchers, and developers understand the working of these algorithms and implement them in their projects. The project is hosted on GitHub and is available for free to use and contribute.
+Pathfinder is an open-source project aimed at providing a visual representation of the shortest path algorithms - A* and Dijkstra. The project is designed to help students, researchers, and developers understand the working of these algorithms and implement them in their projects.
 
 ### Motivation
 Shortest path algorithms like A* and Dijkstra are widely used in various fields, including computer science, logistics, transportation, and many more. However, understanding the working of these algorithms can be challenging, especially for beginners. Pathfinder aims to bridge this gap by providing a visual representation of these algorithms.
